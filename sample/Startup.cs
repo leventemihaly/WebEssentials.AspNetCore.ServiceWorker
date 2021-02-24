@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using WebEssentials.AspNetCore.Pwa;
 
 namespace Sample
@@ -24,17 +25,22 @@ namespace Sample
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
-                app.UseBrowserLink();
+                app.UseDeveloperExceptionPage();
             }
 
-            app.UseDeveloperExceptionPage();
-
             app.UseStaticFiles();
-            app.UseMvcWithDefaultRoute();
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapRazorPages();
+            });
+
+            app.AddPwaRoutes();
         }
     }
 }
