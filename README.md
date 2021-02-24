@@ -78,6 +78,12 @@ public void ConfigureServices(IServiceCollection services)
     services.AddMvc();
     services.AddProgressiveWebApp();
 }
+
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+    app.AddPwaRoutes();
+}
+
 ```
 
 > A `WebManifest` object is now available in the Dependency Injection system in ASP.NET Core that allows you to access the contents of the manifest.json file through the strongly typed object.
